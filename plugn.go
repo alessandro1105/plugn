@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
-	"github.com/progrium/go-basher"
+	basher "github.com/progrium/go-basher"
 )
 
 var Version string
@@ -98,9 +98,11 @@ func main() {
 		"bashenv/plugn.bash",
 	}
 
-	if os.Getenv("BASH_BIN") == "" {
-		basher.Application(funcs, scripts, Asset, true)
-	} else {
-		basher.ApplicationWithPath(funcs, scripts, Asset, true, os.Getenv("BASH_BIN"))
-	}
+	// Force the system bash
+	basher.ApplicationWithPath(funcs, scripts, Asset, true, "/bin/bash")
+	// if os.Getenv("BASH_BIN") == "" {
+	// 	basher.Application(funcs, scripts, Asset, true)
+	// } else {
+	// 	basher.ApplicationWithPath(funcs, scripts, Asset, true, os.Getenv("BASH_BIN"))
+	// }
 }
